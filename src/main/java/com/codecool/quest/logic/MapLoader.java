@@ -35,6 +35,18 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Skeleton(cell);
                             break;
+                        case 'w':
+                            cell.setType(CellType.SWORD);
+                            break;
+                        case 'k':
+                            cell.setType(CellType.KEY);
+                            break;
+                        case 'd':
+                            cell.setType(CellType.DIAMOND);
+                            break;
+                        case 'h':
+                            cell.setType(CellType.HEART);
+                            break;
                         case '@':
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));
