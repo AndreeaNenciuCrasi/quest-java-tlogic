@@ -9,11 +9,14 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.awt.*;
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap();
@@ -26,6 +29,7 @@ public class Main extends Application {
     Label diamondLabel = new Label();
     Label keyLabel = new Label();
     Label skeletonLabel = new Label();
+    ListView<String> listView;
 
     public static void main(String[] args) {
         launch(args);
@@ -37,20 +41,28 @@ public class Main extends Application {
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
-        ui.add(new Label("Health: "), 0, 0);
-        ui.add(healthLabel, 1, 0);
+//        ui.add(new Label("Health: "), 0, 0);
+//        ui.add(healthLabel, 1, 0);
+//
+//        ui.add(new Label("Sword: "), 0, 50);
+//        ui.add(swordLabel, 1, 50);
+//
+//        ui.add(new Label("Diamond: "), 0, 100);
+//        ui.add(diamondLabel, 1, 100);
+//
+//        ui.add(new Label("Key: "), 0, 150);
+//        ui.add(keyLabel, 1, 150);
+//
+//        ui.add(new Label("Skeleton: "), 0, 190);
+//        ui.add(skeletonLabel, 1, 190);
 
-        ui.add(new Label("Sword: "), 0, 50);
-        ui.add(swordLabel, 1, 0);
 
-        ui.add(new Label("Diamond: "), 0, 100);
-        ui.add(diamondLabel, 1, 0);
+        listView =new ListView<>();
+        listView.getItems().addAll("INVENTORY", "Health: " + map.getPlayer().getHealth() , "Sword: " + map.getPlayer().getSword(),
+                "Diamond: "+ map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Skeleton: " + map.getPlayer().getSkeleton());
+        ui.add(listView,0,0);
 
-        ui.add(new Label("Key: "), 0, 150);
-        ui.add(keyLabel, 1, 0);
 
-        ui.add(new Label("Skeleton: "), 0, 190);
-        ui.add(skeletonLabel, 1, 0);
 
         BorderPane borderPane = new BorderPane();
 
@@ -60,10 +72,12 @@ public class Main extends Application {
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
         refresh();
+        listView.setOnMouseClicked(e->borderPane.requestFocus());
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Codecool Quest");
         primaryStage.show();
+
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -100,6 +114,13 @@ public class Main extends Application {
                 }
             }
         }
-        healthLabel.setText("" + map.getPlayer().getHealth());
+//        healthLabel.setText("" + map.getPlayer().getHealth());
+//        swordLabel.setText("" + map.getPlayer().getSword());
+//        diamondLabel.setText("" + map.getPlayer().getDiamond());
+//        keyLabel.setText("" + map.getPlayer().getKey());
+//        skeletonLabel.setText("" + map.getPlayer().getSkeleton());
+        listView.getItems().clear();
+        listView.getItems().addAll("INVENTORY", "Health: " + map.getPlayer().getHealth() , "Sword: " + map.getPlayer().getSword(),
+                "Diamond: "+ map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Skeleton: " + map.getPlayer().getSkeleton());
     }
 }

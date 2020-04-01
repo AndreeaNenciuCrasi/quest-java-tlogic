@@ -7,6 +7,10 @@ import com.codecool.quest.logic.Drawable;
 public abstract class Actor implements Drawable {
     private Cell cell;
     private int health = 10;
+    private int sword = 0;
+    private int key = 0;
+    private int diamond = 0;
+    private int skeleton = 0;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -22,6 +26,22 @@ public abstract class Actor implements Drawable {
             nextCell.setActor(this);
             cell = nextCell;
         }
+    }
+
+    public int getSword() {
+        return sword;
+    }
+
+    public int getKey() {
+        return key;
+    }
+
+    public int getDiamond() {
+        return diamond;
+    }
+
+    public int getSkeleton() {
+        return skeleton;
     }
 
     public int getHealth() {
