@@ -8,6 +8,10 @@ import com.codecool.quest.logic.ItemButton;
 public abstract class Actor implements Drawable {
     private Cell cell;
     private int health = 10;
+    private int sword = 0;
+    private int key = 0;
+    private int diamond = 0;
+    private int skeleton = 0;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -24,6 +28,22 @@ public abstract class Actor implements Drawable {
         }
 //        item position on map
         itemPosition(dx, dy);
+    }
+
+    public int getSword() {
+        return sword;
+    }
+
+    public int getKey() {
+        return key;
+    }
+
+    public int getDiamond() {
+        return diamond;
+    }
+
+    public int getSkeleton() {
+        return skeleton;
     }
 
     public int getHealth() {
