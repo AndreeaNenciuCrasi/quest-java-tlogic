@@ -47,6 +47,12 @@ public class MapLoader {
                         case 'h':
                             cell.setType(CellType.HEART);
                             break;
+                        case 'o':
+                            cell.setType(CellType.OPEN_DOOR);
+                            break;
+                        case 'c':
+                            cell.setType(CellType.CLOSED_DOOR);
+                            break;
                         case '@':
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));
