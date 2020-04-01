@@ -9,7 +9,8 @@ public enum CellType {
     DIAMOND("diamond"),
     HEART("heart"),
     OPEN_DOOR("openDoor"),
-    CLOSED_DOOR("closedDoor");
+    CLOSED_DOOR("closedDoor"),
+    SKELETON("skeleton");
 
     private final String tileName;
 
