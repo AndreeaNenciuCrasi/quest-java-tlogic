@@ -3,6 +3,7 @@ package com.codecool.quest.logic.actors;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.Drawable;
+import com.codecool.quest.logic.ItemButton;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
@@ -15,13 +16,14 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if(nextCell.getType().equals(CellType.WALL)){
-        }
-        else {
+        if (nextCell.getType().equals(CellType.WALL) || nextCell.getType().equals(CellType.SKELETON)) {
+        } else {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
         }
+//        item position on map
+        itemPosition(dx, dy);
     }
 
     public int getHealth() {
@@ -39,4 +41,21 @@ public abstract class Actor implements Drawable {
     public int getY() {
         return cell.getY();
     }
+
+    public void itemPosition(int dx, int dy) {
+        ItemButton button = new ItemButton();
+
+        if (cell.getType().equals(CellType.HEART)) {
+            button.getItem(cell);
+        } else if (cell.getType().equals(CellType.DIAMOND)) {
+            button.getItem(cell);
+        } else if (cell.getType().equals(CellType.SWORD)) {
+            button.getItem(cell);
+
+        } else if (cell.getType().equals(CellType.KEY)) {
+            button.getItem(cell);
+        }
+    }
+
+
 }
