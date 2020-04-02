@@ -55,6 +55,12 @@ public class MapLoader {
                         case 't':
                             cell.setType(CellType.TREE1);
                             break;
+                        case 'i':
+                            cell.setType(CellType.HOUSE);
+                            break;
+                        case 'a':
+                            cell.setType(CellType.WATER1);
+                            break;
                         case '@':
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));
