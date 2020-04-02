@@ -7,12 +7,12 @@ import com.codecool.quest.logic.ItemButton;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
-    private int health = 10;
+    private int health = 15;
     private int sword = 0;
     private int key = 0;
     private int diamond = 0;
     private int door = 0;
-    private int skeleton = 0;
+    private int skeleton = 10;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -29,7 +29,24 @@ public abstract class Actor implements Drawable {
         }
 //        item position on map
         itemPosition(dx, dy);
-        System.out.println(cell.getX() + cell.getY());
+
+        if (nextCell.getType().equals(CellType.SKELETON) && sword == 0) {
+            hitMonster(nextCell, 5);
+        } else if (nextCell.getType().equals(CellType.SKELETON) && sword == 1) {
+            hitMonster(nextCell, 8);
+        }
+    }
+
+    public void hitMonster(Cell nextCell, int hitStrength) {
+        health -= 2;
+        skeleton -= hitStrength;
+        System.out.println(nextCell.getType());
+        if (skeleton > 0) {
+        } else {
+            nextCell.setType(CellType.FLOOR);
+            skeleton = 10;
+            System.out.println(nextCell.getType());
+        }
     }
 
     public void setSword(int sword) {
