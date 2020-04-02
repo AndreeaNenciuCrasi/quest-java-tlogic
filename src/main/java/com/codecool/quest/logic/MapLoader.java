@@ -1,7 +1,6 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.actors.Player;
-import com.codecool.quest.logic.actors.Skeleton;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -52,6 +51,9 @@ public class MapLoader {
                             break;
                         case 'c':
                             cell.setType(CellType.CLOSED_DOOR);
+                            break;
+                        case 't':
+                            cell.setType(CellType.TREE1);
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
