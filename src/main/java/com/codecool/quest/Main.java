@@ -24,11 +24,6 @@ public class Main extends Application {
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
-    Label healthLabel = new Label();
-    Label swordLabel = new Label();
-    Label diamondLabel = new Label();
-    Label keyLabel = new Label();
-    Label skeletonLabel = new Label();
     ListView<String> listView;
 
     public static void main(String[] args) {
