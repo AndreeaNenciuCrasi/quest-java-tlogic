@@ -36,10 +36,10 @@ public class Main extends Application {
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
-        listView =new ListView<>();
+        listView = new ListView<>();
         listView.getItems().addAll("Health: " + map.getPlayer().getHealth(), " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
-                "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Skeleton: " + map.getPlayer().getSkeleton());
-        ui.add(listView,0,0);
+                "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Enemy Health: " + map.getPlayer().getSkeleton());
+        ui.add(listView, 0, 0);
 
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(canvas);
@@ -93,6 +93,6 @@ public class Main extends Application {
 
         listView.getItems().clear();
         listView.getItems().addAll("Health: " + map.getPlayer().getHealth(), " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
-                "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Skeleton: " + map.getPlayer().getSkeleton());
+                "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Enemy Health: " + map.getPlayer().getSkeleton());
     }
 }
