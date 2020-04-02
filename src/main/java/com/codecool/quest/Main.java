@@ -92,7 +92,7 @@ public class Main extends Application {
         }
 
         listView.getItems().clear();
-        listView.getItems().addAll("Health: " + map.getPlayer().getHealth(), " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
-                "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Enemy Health: " + map.getPlayer().getSkeleton());
+        listView.getItems().addAll("Health: " + map.getPlayer().getHealth(), "Enemy Health: " + map.getPlayer().getSkeleton(), " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
+                "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey());
     }
 }
