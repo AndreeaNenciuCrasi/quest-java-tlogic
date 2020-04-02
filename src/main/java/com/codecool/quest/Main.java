@@ -41,31 +41,12 @@ public class Main extends Application {
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
-//        ui.add(new Label("Health: "), 0, 0);
-//        ui.add(healthLabel, 1, 0);
-//
-//        ui.add(new Label("Sword: "), 0, 50);
-//        ui.add(swordLabel, 1, 50);
-//
-//        ui.add(new Label("Diamond: "), 0, 100);
-//        ui.add(diamondLabel, 1, 100);
-//
-//        ui.add(new Label("Key: "), 0, 150);
-//        ui.add(keyLabel, 1, 150);
-//
-//        ui.add(new Label("Skeleton: "), 0, 190);
-//        ui.add(skeletonLabel, 1, 190);
-
-
         listView =new ListView<>();
-        listView.getItems().addAll("INVENTORY", "Health: " + map.getPlayer().getHealth() , "Sword: " + map.getPlayer().getSword(),
-                "Diamond: "+ map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Skeleton: " + map.getPlayer().getSkeleton());
+        listView.getItems().addAll("Health: " + map.getPlayer().getHealth(), " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
+                "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Skeleton: " + map.getPlayer().getSkeleton());
         ui.add(listView,0,0);
 
-
-
         BorderPane borderPane = new BorderPane();
-
         borderPane.setCenter(canvas);
         borderPane.setRight(ui);
 
@@ -114,13 +95,9 @@ public class Main extends Application {
                 }
             }
         }
-//        healthLabel.setText("" + map.getPlayer().getHealth());
-//        swordLabel.setText("" + map.getPlayer().getSword());
-//        diamondLabel.setText("" + map.getPlayer().getDiamond());
-//        keyLabel.setText("" + map.getPlayer().getKey());
-//        skeletonLabel.setText("" + map.getPlayer().getSkeleton());
+
         listView.getItems().clear();
-        listView.getItems().addAll("INVENTORY", "Health: " + map.getPlayer().getHealth() , "Sword: " + map.getPlayer().getSword(),
-                "Diamond: "+ map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Skeleton: " + map.getPlayer().getSkeleton());
+        listView.getItems().addAll("Health: " + map.getPlayer().getHealth(), " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
+                "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Skeleton: " + map.getPlayer().getSkeleton());
     }
 }
