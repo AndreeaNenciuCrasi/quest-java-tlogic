@@ -13,7 +13,9 @@ public enum CellType {
     SKELETON("skeleton"),
     TREE1("tree1"),
     WATER1("water1"),
-    HOUSE("house");
+    HOUSE("house"),
+    SKELETON2("skeleton2"),
+    SKELETON3("skeleton3");
 
     private final String tileName;
 

@@ -20,7 +20,7 @@ public class ItemButton {
         Button btn = new Button();
         btn.setText("Pick up item");
         stage.centerOnScreen();
-        stage.setScene(new Scene(btn, 50, 50));
+        stage.setScene(new Scene(btn, 125, 70));
         stage.show();
         btn.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             if (cell.getType() == CellType.DIAMOND) {

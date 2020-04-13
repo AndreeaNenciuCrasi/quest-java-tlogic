@@ -13,6 +13,9 @@ public abstract class Actor implements Drawable {
     private int diamond = 0;
     private int door = 0;
     private int skeleton = 10;
+    private int skeleton2 = 0;
+    private int skeleton3 = 0;
+
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -21,18 +24,23 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if (nextCell.getType().equals(CellType.WALL) || nextCell.getType().equals(CellType.SKELETON)) {
+        if (nextCell.getType().equals(CellType.WALL) || nextCell.getType().equals(CellType.SKELETON) ||
+                nextCell.getType().equals(CellType.SKELETON2)) {
         } else {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
         }
+
 //        item position on map
         itemPosition(dx, dy);
 
-        if (nextCell.getType().equals(CellType.SKELETON) && sword == 0) {
+        if ((nextCell.getType().equals(CellType.SKELETON) || nextCell.getType().equals(CellType.SKELETON2) ||
+                nextCell.getType().equals(CellType.SKELETON3)) &&
+                sword == 0) {
             hitMonster(nextCell, 5);
-        } else if (nextCell.getType().equals(CellType.SKELETON) && sword == 1) {
+        } else if ((nextCell.getType().equals(CellType.SKELETON) || nextCell.getType().equals(CellType.SKELETON2) ||
+                nextCell.getType().equals(CellType.SKELETON3)) && sword == 1) {
             hitMonster(nextCell, 8);
         }
     }
