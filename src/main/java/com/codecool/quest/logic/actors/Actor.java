@@ -35,6 +35,11 @@ public abstract class Actor implements Drawable {
 //        item position on map
         itemPosition(dx, dy);
 
+
+        findMonster(nextCell);
+    }
+
+    void findMonster(Cell nextCell) {
         if ((nextCell.getType().equals(CellType.SKELETON) || nextCell.getType().equals(CellType.SKELETON2) ||
                 nextCell.getType().equals(CellType.SKELETON3)) &&
                 sword == 0) {
@@ -45,7 +50,7 @@ public abstract class Actor implements Drawable {
         }
     }
 
-    public void hitMonster(Cell nextCell, int hitStrength) {
+    void hitMonster(Cell nextCell, int hitStrength) {
         health -= 2;
         skeleton -= hitStrength;
         System.out.println(nextCell.getType());
@@ -57,20 +62,40 @@ public abstract class Actor implements Drawable {
         }
     }
 
-    public void setSword(int sword) {
-        this.sword = sword;
+    void moveSkeleton2(Cell nextcell) {
+
+    }
+
+    void itemPosition(int dx, int dy) {
+        ItemButton button = new ItemButton(this);
+
+        if (cell.getType().equals(CellType.HEART)) {
+            button.getItem(cell);
+        } else if (cell.getType().equals(CellType.DIAMOND)) {
+            button.getItem(cell);
+        } else if (cell.getType().equals(CellType.SWORD)) {
+            button.getItem(cell);
+        } else if (cell.getType().equals(CellType.KEY)) {
+            button.getItem(cell);
+        } else if (cell.getType().equals(CellType.CLOSED_DOOR) && door == 1) {
+            cell.setType(CellType.OPEN_DOOR);
+        }
     }
 
     public int getSword() {
         return sword;
     }
 
-    public void setKey(int key) {
-        this.key = key;
+    public void setSword(int sword) {
+        this.sword = sword;
     }
 
     public int getKey() {
         return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
     }
 
     public int getDiamond() {
@@ -85,12 +110,12 @@ public abstract class Actor implements Drawable {
         return skeleton;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
     public int getHealth() {
         return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public Cell getCell() {
@@ -112,23 +137,5 @@ public abstract class Actor implements Drawable {
     public void setDoor(int door) {
         this.door = door;
     }
-
-    public void itemPosition(int dx, int dy) {
-        Cell nextCell = cell.getNeighbor(dx, dy);
-        ItemButton button = new ItemButton(this);
-
-        if (cell.getType().equals(CellType.HEART)) {
-            button.getItem(cell);
-        } else if (cell.getType().equals(CellType.DIAMOND)) {
-            button.getItem(cell);
-        } else if (cell.getType().equals(CellType.SWORD)) {
-            button.getItem(cell);
-        } else if (cell.getType().equals(CellType.KEY)) {
-            button.getItem(cell);
-        } else if (cell.getType().equals(CellType.CLOSED_DOOR) && door == 1) {
-            cell.setType(CellType.OPEN_DOOR);
-        }
-    }
-
 
 }
