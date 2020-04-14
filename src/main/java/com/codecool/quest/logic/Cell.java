@@ -35,8 +35,6 @@ public class Cell implements Drawable {
         return gameMap.getCell(x + dx, y + dy);
     }
 
-    public Cell getSkeleton2() {
-    }
 
     @Override
     public String getTileName() {
