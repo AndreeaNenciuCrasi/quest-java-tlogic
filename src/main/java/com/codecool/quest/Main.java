@@ -1,35 +1,31 @@
 package com.codecool.quest;
 
 import com.codecool.quest.logic.Cell;
+import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
 public class Main extends Application {
-    GameMap map = MapLoader.loadMap();
+    GameMap map = MapLoader.loadMap("map.txt", null);
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     ListView<String> listView;
     private String playerName;
+    int levelCount = 0;
 
     public static void main(String[] args) {
         launch(args);
@@ -44,6 +40,7 @@ public class Main extends Application {
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
+        System.out.println(map);
         listView = new ListView<>();
         listView.getItems().addAll("Character Name: " + playerName + "Health: " + map.getPlayer().getHealth(), " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
                 "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Enemy Health: " + map.getPlayer().getSkeleton());
@@ -58,7 +55,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
 
         refresh();
-        listView.setOnMouseClicked(e -> borderPane.requestFocus());
+        listView.setOnMouseClicked(e->borderPane.requestFocus());
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Codecool Quest");
@@ -119,9 +116,18 @@ public class Main extends Application {
                 refresh();
                 break;
             case RIGHT:
-                map.getPlayer().move(1, 0);
+                map.getPlayer().move(1,0);
                 refresh();
                 break;
+        }
+
+        if(map.getPlayer().getCell().getType()== CellType.OPEN_DOOR){
+            levelCount++;
+            if (levelCount == 1){
+                map = MapLoader.loadMap("maze.txt", map.getPlayer());
+            }else if(levelCount == 2) {
+                map = MapLoader.loadMap("level3.txt", map.getPlayer());
+            }
         }
     }
 

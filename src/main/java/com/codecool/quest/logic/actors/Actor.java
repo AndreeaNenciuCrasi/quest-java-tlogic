@@ -89,6 +89,11 @@ public abstract class Actor implements Drawable {
         return cell;
     }
 
+    public void setCell(Cell cell) {
+        this.cell = cell;
+        this.cell.setActor(this);
+    }
+
     public int getX() {
         return cell.getX();
     }
@@ -117,7 +122,7 @@ public abstract class Actor implements Drawable {
             button.getItem(cell);
         } else if (cell.getType().equals(CellType.KEY)) {
             button.getItem(cell);
-        } else if (cell.getType().equals(CellType.CLOSED_DOOR) && door == 1) {
+        } else if (cell.getType().equals(CellType.CLOSED_DOOR) && door > 0) {
             cell.setType(CellType.OPEN_DOOR);
         }
     }
