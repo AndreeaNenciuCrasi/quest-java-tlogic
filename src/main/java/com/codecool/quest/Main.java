@@ -1,9 +1,6 @@
 package com.codecool.quest;
 
-import com.codecool.quest.logic.Cell;
-import com.codecool.quest.logic.CellType;
-import com.codecool.quest.logic.GameMap;
-import com.codecool.quest.logic.MapLoader;
+import com.codecool.quest.logic.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -78,8 +75,12 @@ public class Main extends Application {
 
         if (map.getPlayer().getCell().getType() == CellType.OPEN_DOOR) {
             map = MapLoader.loadMap("maze.txt", map.getPlayer());
+            Message myWindow1 = new Message("Level Up");
+            myWindow1.setVisible(true);
         } else if (map.getPlayer().getCell().getType() == CellType.WHITE_OPEN_DOOR) {
             map = MapLoader.loadMap("level3.txt", map.getPlayer());
+            Message myWindow2 = new Message("Level Up");
+            myWindow2.setVisible(true);
         }
     }
 
