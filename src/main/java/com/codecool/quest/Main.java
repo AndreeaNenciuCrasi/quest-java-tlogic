@@ -6,15 +6,22 @@ import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap("map.txt", null);
@@ -23,6 +30,7 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     ListView<String> listView;
+    private String playerName;
     int levelCount = 0;
 
     public static void main(String[] args) {
@@ -31,13 +39,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        playerName = characterName();
+        cheatCodes();
+        System.out.println(playerName);
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
         System.out.println(map);
         listView = new ListView<>();
-        listView.getItems().addAll("Health: " + map.getPlayer().getHealth(), " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
+        listView.getItems().addAll("Character Name: " + playerName + "Health: " + map.getPlayer().getHealth(), " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
                 "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Enemy Health: " + map.getPlayer().getSkeleton());
         ui.add(listView, 0, 0);
 
@@ -46,15 +57,55 @@ public class Main extends Application {
         borderPane.setRight(ui);
 
         Scene scene = new Scene(borderPane);
+
         primaryStage.setScene(scene);
+
         refresh();
         listView.setOnMouseClicked(e->borderPane.requestFocus());
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Codecool Quest");
         primaryStage.show();
+    }
+
+    private String characterName() {
+        Stage input = new Stage();
+        input.initModality(Modality.APPLICATION_MODAL);
+        input.setTitle("Character Name");
+        input.setMinWidth(450);
+        Label label = new Label();
+        label.setText("Enter your character name: ");
+
+        TextField name = new TextField("");
+
+        name.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                playerName = name.getText().trim();
+                input.close();
+            }
+        });
+
+        input.setOnCloseRequest(e -> {
+            input.close();
+            System.exit(0);
+        });
+
+        VBox layout = new VBox(35);
+        layout.getChildren().addAll(label, name);
+        layout.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(layout);
+        input.setScene(scene);
+        input.showAndWait();
+        return playerName;
 
     }
+
+    private void cheatCodes() {
+        if (playerName.equals("Andreea")) {
+            map.getPlayer().setHealth(100);
+        }
+    }
+
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
@@ -101,7 +152,7 @@ public class Main extends Application {
         }
 
         listView.getItems().clear();
-        listView.getItems().addAll("Health: " + map.getPlayer().getHealth(), "Enemy Health: " + map.getPlayer().getSkeleton(), " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
-                "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey());
+        listView.getItems().addAll("Character Name: " + playerName, "Health: " + map.getPlayer().getHealth(), " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
+                "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Enemy Health: " + map.getPlayer().getSkeleton());
     }
 }
