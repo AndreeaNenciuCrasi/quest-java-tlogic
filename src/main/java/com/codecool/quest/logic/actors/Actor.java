@@ -103,6 +103,11 @@ public abstract class Actor implements Drawable {
         return sword;
     }
 
+    public void setCell(Cell cell) {
+        this.cell = cell;
+        this.cell.setActor(this);
+    }
+
     public void setSword(int sword) {
         this.sword = sword;
     }
