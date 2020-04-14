@@ -52,6 +52,9 @@ public class MapLoader {
                         case 'c':
                             cell.setType(CellType.CLOSED_DOOR);
                             break;
+                        case 'r':
+                            cell.setType(CellType.CROSS_DOOR);
+                            break;
                         case 't':
                             cell.setType(CellType.TREE1);
                             break;
