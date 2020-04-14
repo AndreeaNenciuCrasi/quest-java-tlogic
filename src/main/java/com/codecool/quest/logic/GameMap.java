@@ -1,6 +1,8 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.actors.Player;
+import com.codecool.quest.logic.actors.Skeleton;
+import com.codecool.quest.logic.actors.Skeleton2;
 
 public class GameMap {
     private int width;
@@ -8,6 +10,7 @@ public class GameMap {
     private Cell[][] cells;
 
     private Player player;
+    private Skeleton2 skeleton2;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -30,6 +33,14 @@ public class GameMap {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public Skeleton2 getSkeleton2() {
+        return skeleton2;
+    }
+
+    public void setSkeleton2(Skeleton2 skeleton2) {
+        this.skeleton2 = skeleton2;
     }
 
     public int getWidth() {

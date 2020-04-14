@@ -5,6 +5,11 @@ import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.Drawable;
 import com.codecool.quest.logic.ItemButton;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 public abstract class Actor implements Drawable {
     private Cell cell;
     private int health = 15;
@@ -39,6 +44,17 @@ public abstract class Actor implements Drawable {
         findMonster(nextCell);
     }
 
+    public void moveMonster(Cell cell) {
+        List<Integer> randomChoice = new ArrayList<Integer>(Arrays.asList(-1, 0, 1));
+        Random rand = new Random();
+        int dx = randomChoice.get(rand.nextInt(randomChoice.size()));
+        int dy = randomChoice.get(rand.nextInt(randomChoice.size()));
+        if (cell.equals(CellType.SKELETON2)) {
+            Cell nextCell = cell.getNeighbor(dx, dy);
+
+        }
+    }
+
     void findMonster(Cell nextCell) {
         if ((nextCell.getType().equals(CellType.SKELETON) || nextCell.getType().equals(CellType.SKELETON2) ||
                 nextCell.getType().equals(CellType.SKELETON3)) &&
@@ -48,6 +64,7 @@ public abstract class Actor implements Drawable {
                 nextCell.getType().equals(CellType.SKELETON3)) && sword == 1) {
             hitMonster(nextCell, 8);
         }
+
     }
 
     void hitMonster(Cell nextCell, int hitStrength) {
