@@ -48,7 +48,7 @@ public class Main extends Application {
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
         refresh();
-        listView.setOnMouseClicked(e->borderPane.requestFocus());
+        listView.setOnMouseClicked(e -> borderPane.requestFocus());
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Codecool Quest");
@@ -71,18 +71,15 @@ public class Main extends Application {
                 refresh();
                 break;
             case RIGHT:
-                map.getPlayer().move(1,0);
+                map.getPlayer().move(1, 0);
                 refresh();
                 break;
         }
 
-        if(map.getPlayer().getCell().getType()== CellType.OPEN_DOOR){
-            levelCount++;
-            if (levelCount == 1){
-                map = MapLoader.loadMap("maze.txt", map.getPlayer());
-            }else if(levelCount == 2) {
-                map = MapLoader.loadMap("level3.txt", map.getPlayer());
-            }
+        if (map.getPlayer().getCell().getType() == CellType.OPEN_DOOR) {
+            map = MapLoader.loadMap("maze.txt", map.getPlayer());
+        } else if (map.getPlayer().getCell().getType() == CellType.WHITE_OPEN_DOOR) {
+            map = MapLoader.loadMap("level3.txt", map.getPlayer());
         }
     }
 

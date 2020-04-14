@@ -31,11 +31,14 @@ public class Tiles {
         tileMap.put("skeleton", new Tile(29, 6));
         tileMap.put("sword", new Tile(0, 30));
         tileMap.put("key", new Tile(17, 23));
+        tileMap.put("key1", new Tile(16, 23));
         tileMap.put("diamond", new Tile(16, 22));
         tileMap.put("heart", new Tile(23, 22));
         tileMap.put("openDoor", new Tile(2, 9));
         tileMap.put("closedDoor", new Tile(1, 9));
         tileMap.put("crossDoor", new Tile(0, 9));
+        tileMap.put("whiteDoor", new Tile(7, 10));
+        tileMap.put("whiteOpenDoor", new Tile(8, 10));
         tileMap.put("tree1", new Tile(1, 1));
         tileMap.put("water1", new Tile(8, 5));
         tileMap.put("house", new Tile(1, 21));

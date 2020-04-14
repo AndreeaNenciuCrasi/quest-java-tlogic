@@ -35,9 +35,11 @@ public class ItemButton {
             if (cell.getType() == CellType.KEY) {
                 actor.setKey(actor.getKey() + 1);
                 actor.setDoor(actor.getDoor() + 1);
-
             }
-
+            if (cell.getType() == CellType.KEY1) {
+                actor.setKey(actor.getKey() + 1);
+                actor.setDoor(actor.getDoor() + 1);
+            }
             cell.setType(CellType.FLOOR);
             stage.close();
         });

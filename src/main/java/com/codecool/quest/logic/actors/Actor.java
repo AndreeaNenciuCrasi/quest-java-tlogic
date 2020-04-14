@@ -122,8 +122,12 @@ public abstract class Actor implements Drawable {
             button.getItem(cell);
         } else if (cell.getType().equals(CellType.KEY)) {
             button.getItem(cell);
-        } else if (cell.getType().equals(CellType.CLOSED_DOOR) && door > 0) {
+        } else if (cell.getType().equals(CellType.KEY1)) {
+            button.getItem(cell);
+        } else if (cell.getType().equals(CellType.CLOSED_DOOR) && door == 1) {
             cell.setType(CellType.OPEN_DOOR);
+        } else if (cell.getType().equals(CellType.WHITE_CLOSED_DOOR) && key == 2) {
+            cell.setType(CellType.WHITE_OPEN_DOOR);
         }
     }
 

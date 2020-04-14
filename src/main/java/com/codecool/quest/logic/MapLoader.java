@@ -40,6 +40,9 @@ public class MapLoader {
                         case 'k':
                             cell.setType(CellType.KEY);
                             break;
+                        case 'y':
+                            cell.setType(CellType.KEY1);
+                            break;
                         case 'd':
                             cell.setType(CellType.DIAMOND);
                             break;
@@ -51,6 +54,12 @@ public class MapLoader {
                             break;
                         case 'c':
                             cell.setType(CellType.CLOSED_DOOR);
+                            break;
+                        case 'q':
+                            cell.setType(CellType.WHITE_CLOSED_DOOR);
+                            break;
+                        case 'z':
+                            cell.setType(CellType.WHITE_OPEN_DOOR);
                             break;
                         case 'r':
                             cell.setType(CellType.CROSS_DOOR);
