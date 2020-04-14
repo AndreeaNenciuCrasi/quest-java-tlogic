@@ -10,6 +10,7 @@ public enum CellType {
     HEART("heart"),
     OPEN_DOOR("openDoor"),
     CLOSED_DOOR("closedDoor"),
+    CROSS_DOOR("crossDoor"),
     SKELETON("skeleton"),
     TREE1("tree1"),
     WATER1("water1"),
