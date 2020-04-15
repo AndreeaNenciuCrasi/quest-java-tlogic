@@ -50,15 +50,17 @@ public class Main extends Application {
         playerName = characterName();
         cheatCodes();
         GridPane ui = new GridPane();
-        stage=primaryStage;
+        stage = primaryStage;
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
         stage.setResizable(false);
 
         System.out.println(map);
         listView = new ListView<>();
-        listView.getItems().addAll("Character Name: " + playerName + "Health: " + map.getPlayer().getHealth(), " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
-                "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Enemy Health: " + map.getPlayer().getSkeleton());
+        listView.getItems().addAll("Character Name: " + playerName, "Health: " + map.getPlayer().getHealth(),
+                "Enemy Health: " + map.getPlayer().getSkeleton(),
+                " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
+                "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey());
         ui.add(listView, 0, 0);
 
         borderPane = new BorderPane();
@@ -241,12 +243,13 @@ public class Main extends Application {
             }
 
 
-
         }
 
         listView.getItems().clear();
-        listView.getItems().addAll("Character Name: " + playerName, "Health: " + map.getPlayer().getHealth(), " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
-                "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Enemy Health: " + map.getPlayer().getSkeleton());
+        listView.getItems().addAll("Character Name: " + playerName, "Health: " + map.getPlayer().getHealth(),
+                "Enemy Health: " + map.getPlayer().getSkeleton(),
+                " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
+                "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey());
     }
 
     public void generateMonsters() {

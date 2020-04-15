@@ -4,7 +4,7 @@ import com.codecool.quest.logic.*;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
-    private int health = 15;
+    private int health = 50;
     private int sword = 0;
     private int key = 0;
     private int diamond = 0;
