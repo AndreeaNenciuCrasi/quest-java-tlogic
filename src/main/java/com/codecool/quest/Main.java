@@ -109,7 +109,9 @@ public class Main extends Application {
 
     private void cheatCodes() {
         if (playerName.equals("Andreea")) {
-            map.getPlayer().setHealth(100);
+            map.getPlayer().setHealth(1000);
+        } else if (playerName.equals("Claudiu")) {
+            map.getPlayer().setKey(1000);
         }
     }
 
