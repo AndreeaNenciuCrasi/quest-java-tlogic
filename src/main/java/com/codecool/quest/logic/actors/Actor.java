@@ -36,7 +36,6 @@ public abstract class Actor implements Drawable {
     }
 
 
-
     void findMonster(Cell nextCell) {
         if ((nextCell.getType().equals(CellType.SKELETON) || nextCell.getType().equals(CellType.SKELETON2) ||
                 nextCell.getType().equals(CellType.SKELETON3)) &&
@@ -61,30 +60,25 @@ public abstract class Actor implements Drawable {
     }
 
 
-
-    void itemPosition(int dx, int dy) {
-        ItemButton button = new ItemButton(this);
-
-        if (cell.getType().equals(CellType.HEART)) {
-            button.getItem(cell);
-        } else if (cell.getType().equals(CellType.DIAMOND)) {
-            button.getItem(cell);
-        } else if (cell.getType().equals(CellType.SWORD)) {
-            button.getItem(cell);
-        } else if (cell.getType().equals(CellType.KEY)) {
-            button.getItem(cell);
-        } else if (cell.getType().equals(CellType.CLOSED_DOOR) && door == 1) {
-            cell.setType(CellType.OPEN_DOOR);
-        }
-    }
+//
+//    void itemPosition(int dx, int dy) {
+//        ItemButton button = new ItemButton(this);
+//
+//        if (cell.getType().equals(CellType.HEART)) {
+//            button.getItem(cell);
+//        } else if (cell.getType().equals(CellType.DIAMOND)) {
+//            button.getItem(cell);
+//        } else if (cell.getType().equals(CellType.SWORD)) {
+//            button.getItem(cell);
+//        } else if (cell.getType().equals(CellType.KEY)) {
+//            button.getItem(cell);
+//        } else if (cell.getType().equals(CellType.CLOSED_DOOR) && door == 1) {
+//            cell.setType(CellType.OPEN_DOOR);
+//        }
+//    }
 
     public int getSword() {
         return sword;
-    }
-
-    public void setCell(Cell cell) {
-        this.cell = cell;
-        this.cell.setActor(this);
     }
 
     public void setSword(int sword) {
@@ -111,17 +105,21 @@ public abstract class Actor implements Drawable {
         return skeleton;
     }
 
+    public int getHealth() {
+        return health;
+    }
 
     public void setHealth(int health) {
         this.health = health;
     }
 
-    public int getHealth() {
-        return health;
-    }
-
     public Cell getCell() {
         return cell;
+    }
+
+    public void setCell(Cell cell) {
+        this.cell = cell;
+        this.cell.setActor(this);
     }
 
     public int getX() {
@@ -152,10 +150,14 @@ public abstract class Actor implements Drawable {
             button.getItem(cell);
         } else if (cell.getType().equals(CellType.KEY)) {
             button.getItem(cell);
-        } else if (cell.getType().equals(CellType.CLOSED_DOOR) && door > 0) {
+        } else if (cell.getType().equals(CellType.KEY1)) {
+            button.getItem(cell);
+        } else if (cell.getType().equals(CellType.CLOSED_DOOR) && door == 1) {
             cell.setType(CellType.OPEN_DOOR);
+        } else if (cell.getType().equals(CellType.WHITE_CLOSED_DOOR) && key == 2) {
+            cell.setType(CellType.WHITE_OPEN_DOOR);
         }
+
+
     }
-
-
 }
