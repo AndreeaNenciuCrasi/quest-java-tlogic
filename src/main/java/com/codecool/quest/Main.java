@@ -1,13 +1,13 @@
 package com.codecool.quest;
-import com.codecool.quest.logic.*;
+
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,8 +20,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Screen;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.util.Random;
@@ -185,22 +185,15 @@ public class Main extends Application {
         else
         {
 
-            System.out.println("We are here");
             canvasWidth = avWidth - avWidth % (2 * Tiles.TILE_WIDTH);
             canvasWidth = (canvasWidth + Tiles.TILE_WIDTH <= avWidth) ? canvasWidth + Tiles.TILE_WIDTH : canvasWidth - Tiles.TILE_WIDTH;
             canvasHeight = avHeight - avHeight % (2 * Tiles.TILE_WIDTH);
             canvasHeight = (canvasHeight + Tiles.TILE_WIDTH <= avHeight) ? canvasHeight + Tiles.TILE_WIDTH : canvasHeight - Tiles.TILE_WIDTH;
 
-            //System.out.println(canvasWidth + " " + canvasHeight);
-            //System.out.println(avWidth + " " + avHeight);
-
-
             int widthCells = canvasWidth / Tiles.TILE_WIDTH;
             int beforeWidth = widthCells / 2;
             int afterWidth = beforeWidth;
             int playerX = map.getPlayer().getX();
-
-            //System.out.println(widthCells + " " + beforeWidth + " " + afterWidth);
 
             if (beforeWidth > playerX) {
                 beforeWidth = playerX;

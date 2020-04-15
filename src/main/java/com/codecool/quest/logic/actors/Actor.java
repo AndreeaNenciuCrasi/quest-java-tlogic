@@ -1,9 +1,6 @@
 package com.codecool.quest.logic.actors;
 
-import com.codecool.quest.logic.Cell;
-import com.codecool.quest.logic.CellType;
-import com.codecool.quest.logic.Drawable;
-import com.codecool.quest.logic.ItemButton;
+import com.codecool.quest.logic.*;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
@@ -156,6 +153,14 @@ public abstract class Actor implements Drawable {
             cell.setType(CellType.OPEN_DOOR);
         } else if (cell.getType().equals(CellType.WHITE_CLOSED_DOOR) && key == 2) {
             cell.setType(CellType.WHITE_OPEN_DOOR);
+        } else if (diamond == 1) {
+            Message message = new Message("Winner");
+            message.setMessage("You Win !!");
+            message.setVisible(true);
+        } else if (health <= 0) {
+            Message message = new Message("Loser");
+            message.setMessage("You Lose !!");
+            message.setVisible(true);
         }
 
 
