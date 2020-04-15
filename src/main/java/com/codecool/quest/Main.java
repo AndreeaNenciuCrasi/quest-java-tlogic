@@ -35,6 +35,7 @@ public class Main extends Application {
     int levelCount = 0;
     private String playerName;
     private int counter;
+    private Cell cell;
 
     public static void main(String[] args) {
         launch(args);

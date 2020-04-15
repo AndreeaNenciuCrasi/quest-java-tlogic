@@ -8,13 +8,14 @@ public class Cell implements Drawable {
     private GameMap gameMap;
     private int x, y;
     private int skeleton2X, skeleton2Y;
+    private int counter;
 
     Cell(GameMap gameMap, int x, int y, CellType type) {
         this.gameMap = gameMap;
         this.x = x;
         this.y = y;
         this.skeleton2X = 19;
-        this.skeleton2Y = 6;
+        this.skeleton2Y = 21;
         this.type = type;
     }
 
