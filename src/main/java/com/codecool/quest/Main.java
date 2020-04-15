@@ -111,7 +111,7 @@ public class Main extends Application {
         if (playerName.equals("Andreea")) {
             map.getPlayer().setHealth(1000);
         } else if (playerName.equals("Claudiu")) {
-            map.getPlayer().setKey(1000);
+            map.getPlayer().setHealth(1000);
         }
     }
 
