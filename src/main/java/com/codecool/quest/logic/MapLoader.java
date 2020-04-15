@@ -74,6 +74,7 @@ public class MapLoader {
                             }
                             break;
                         case '+':
+
                             cell.setType(CellType.SKELETON2);
                             break;
                         case '^':

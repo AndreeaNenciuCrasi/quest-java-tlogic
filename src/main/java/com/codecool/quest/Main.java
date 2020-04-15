@@ -22,6 +22,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.Random;
+
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap("map.txt", null);
@@ -30,8 +32,9 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     ListView<String> listView;
-    private String playerName;
     int levelCount = 0;
+    private String playerName;
+    private int counter;
 
     public static void main(String[] args) {
         launch(args);
@@ -61,7 +64,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
 
         refresh();
-        listView.setOnMouseClicked(e->borderPane.requestFocus());
+        listView.setOnMouseClicked(e -> borderPane.requestFocus());
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Codecool Quest");
@@ -108,6 +111,7 @@ public class Main extends Application {
 
 
     private void onKeyPressed(KeyEvent keyEvent) {
+
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
@@ -122,16 +126,20 @@ public class Main extends Application {
                 refresh();
                 break;
             case RIGHT:
-                map.getPlayer().move(1,0);
+                map.getPlayer().move(1, 0);
                 refresh();
                 break;
         }
+        counter++;
 
-        if(map.getPlayer().getCell().getType()== CellType.OPEN_DOOR){
+        generateMonsters();
+
+
+        if (map.getPlayer().getCell().getType() == CellType.OPEN_DOOR) {
             levelCount++;
-            if (levelCount == 1){
+            if (levelCount == 1) {
                 map = MapLoader.loadMap("maze.txt", map.getPlayer());
-            }else if(levelCount == 2) {
+            } else if (levelCount == 2) {
                 map = MapLoader.loadMap("level3.txt", map.getPlayer());
             }
         }
@@ -155,4 +163,30 @@ public class Main extends Application {
         listView.getItems().addAll("Character Name: " + playerName, "Health: " + map.getPlayer().getHealth(), " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
                 "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey(), "Enemy Health: " + map.getPlayer().getSkeleton());
     }
+
+    public void generateMonsters() {
+        for (int x = 0; x < map.getWidth(); x++) {
+            for (int y = 0; y < map.getHeight(); y++) {
+                Cell cell = map.getCell(x, y);
+                if (cell.getActor() != null && counter % 9 == 0) {
+                    generateSkeleton2(cell);
+                }
+            }
+        }
+
+    }
+
+
+    public void generateSkeleton2(Cell cell) {
+        Random rand = new Random();
+        int[] randomNr = {0, 0, 0};
+        int x = rand.nextInt(randomNr.length);
+        int y = rand.nextInt(randomNr.length);
+        Cell nextCell = cell.getNeighbor(x, y);
+        if (nextCell.getType().equals(CellType.FLOOR)) {
+            nextCell.setType(CellType.SKELETON2);
+        }
+    }
+
+
 }

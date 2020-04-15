@@ -5,11 +5,6 @@ import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.Drawable;
 import com.codecool.quest.logic.ItemButton;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
 public abstract class Actor implements Drawable {
     private Cell cell;
     private int health = 15;
@@ -28,6 +23,8 @@ public abstract class Actor implements Drawable {
     }
 
     public void move(int dx, int dy) {
+        System.out.println("CellX: " + cell.getX());
+        System.out.println("CellY: " + cell.getY());
         Cell nextCell = cell.getNeighbor(dx, dy);
         if (nextCell.getType().equals(CellType.WALL) || nextCell.getType().equals(CellType.SKELETON) ||
                 nextCell.getType().equals(CellType.SKELETON2) || nextCell.getType().equals(CellType.SKELETON3)) {
@@ -35,8 +32,9 @@ public abstract class Actor implements Drawable {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
-        }
 
+        }
+        System.out.println(cell.getSkeleton2X());
 //        item position on map
         itemPosition(dx, dy);
 
@@ -44,16 +42,7 @@ public abstract class Actor implements Drawable {
         findMonster(nextCell);
     }
 
-    public void moveMonster(Cell cell) {
-        List<Integer> randomChoice = new ArrayList<Integer>(Arrays.asList(-1, 0, 1));
-        Random rand = new Random();
-        int dx = randomChoice.get(rand.nextInt(randomChoice.size()));
-        int dy = randomChoice.get(rand.nextInt(randomChoice.size()));
-        if (cell.equals(CellType.SKELETON2)) {
-            Cell nextCell = cell.getNeighbor(dx, dy);
 
-        }
-    }
 
     void findMonster(Cell nextCell) {
         if ((nextCell.getType().equals(CellType.SKELETON) || nextCell.getType().equals(CellType.SKELETON2) ||
@@ -79,9 +68,7 @@ public abstract class Actor implements Drawable {
         }
     }
 
-    void moveSkeleton2(Cell nextcell) {
 
-    }
 
     void itemPosition(int dx, int dy) {
         ItemButton button = new ItemButton(this);

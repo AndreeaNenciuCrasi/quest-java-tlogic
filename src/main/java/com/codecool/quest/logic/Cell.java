@@ -7,11 +7,14 @@ public class Cell implements Drawable {
     private Actor actor;
     private GameMap gameMap;
     private int x, y;
+    private int skeleton2X, skeleton2Y;
 
     Cell(GameMap gameMap, int x, int y, CellType type) {
         this.gameMap = gameMap;
         this.x = x;
         this.y = y;
+        this.skeleton2X = 19;
+        this.skeleton2Y = 6;
         this.type = type;
     }
 
@@ -47,5 +50,9 @@ public class Cell implements Drawable {
 
     public int getY() {
         return y;
+    }
+
+    public int getSkeleton2X() {
+        return skeleton2X;
     }
 }
