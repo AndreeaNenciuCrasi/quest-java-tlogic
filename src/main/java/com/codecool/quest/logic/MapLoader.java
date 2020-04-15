@@ -82,6 +82,13 @@ public class MapLoader {
                                 player.setCell(cell);
                             }
                             break;
+                        case '+':
+
+                            cell.setType(CellType.SKELETON2);
+                            break;
+                        case '^':
+                            cell.setType(CellType.SKELETON3);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

@@ -21,7 +21,8 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if (nextCell.getType().equals(CellType.WALL) || nextCell.getType().equals(CellType.SKELETON)) {
+        if (nextCell.getType().equals(CellType.WALL) || nextCell.getType().equals(CellType.SKELETON) ||
+                nextCell.getType().equals(CellType.SKELETON2) || nextCell.getType().equals(CellType.SKELETON3)) {
         } else {
             cell.setActor(null);
             nextCell.setActor(this);
@@ -30,14 +31,24 @@ public abstract class Actor implements Drawable {
 //        item position on map
         itemPosition(dx, dy);
 
-        if (nextCell.getType().equals(CellType.SKELETON) && sword == 0) {
+
+        findMonster(nextCell);
+    }
+
+
+
+    void findMonster(Cell nextCell) {
+        if ((nextCell.getType().equals(CellType.SKELETON) || nextCell.getType().equals(CellType.SKELETON2) ||
+                nextCell.getType().equals(CellType.SKELETON3)) &&
+                sword == 0) {
             hitMonster(nextCell, 5);
-        } else if (nextCell.getType().equals(CellType.SKELETON) && sword == 1) {
+        } else if ((nextCell.getType().equals(CellType.SKELETON) || nextCell.getType().equals(CellType.SKELETON2) ||
+                nextCell.getType().equals(CellType.SKELETON3)) && sword == 1) {
             hitMonster(nextCell, 8);
         }
     }
 
-    public void hitMonster(Cell nextCell, int hitStrength) {
+    void hitMonster(Cell nextCell, int hitStrength) {
         health -= 2;
         skeleton -= hitStrength;
         System.out.println(nextCell.getType());
@@ -49,20 +60,43 @@ public abstract class Actor implements Drawable {
         }
     }
 
-    public void setSword(int sword) {
-        this.sword = sword;
+
+
+    void itemPosition(int dx, int dy) {
+        ItemButton button = new ItemButton(this);
+
+        if (cell.getType().equals(CellType.HEART)) {
+            button.getItem(cell);
+        } else if (cell.getType().equals(CellType.DIAMOND)) {
+            button.getItem(cell);
+        } else if (cell.getType().equals(CellType.SWORD)) {
+            button.getItem(cell);
+        } else if (cell.getType().equals(CellType.KEY)) {
+            button.getItem(cell);
+        } else if (cell.getType().equals(CellType.CLOSED_DOOR) && door == 1) {
+            cell.setType(CellType.OPEN_DOOR);
+        }
     }
 
     public int getSword() {
         return sword;
     }
 
-    public void setKey(int key) {
-        this.key = key;
+    public void setCell(Cell cell) {
+        this.cell = cell;
+        this.cell.setActor(this);
+    }
+
+    public void setSword(int sword) {
+        this.sword = sword;
     }
 
     public int getKey() {
         return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
     }
 
     public int getDiamond() {
@@ -77,6 +111,7 @@ public abstract class Actor implements Drawable {
         return skeleton;
     }
 
+
     public void setHealth(int health) {
         this.health = health;
     }
@@ -87,11 +122,6 @@ public abstract class Actor implements Drawable {
 
     public Cell getCell() {
         return cell;
-    }
-
-    public void setCell(Cell cell) {
-        this.cell = cell;
-        this.cell.setActor(this);
     }
 
     public int getX() {
@@ -122,12 +152,8 @@ public abstract class Actor implements Drawable {
             button.getItem(cell);
         } else if (cell.getType().equals(CellType.KEY)) {
             button.getItem(cell);
-        } else if (cell.getType().equals(CellType.KEY1)) {
-            button.getItem(cell);
-        } else if (cell.getType().equals(CellType.CLOSED_DOOR) && door == 1) {
+        } else if (cell.getType().equals(CellType.CLOSED_DOOR) && door > 0) {
             cell.setType(CellType.OPEN_DOOR);
-        } else if (cell.getType().equals(CellType.WHITE_CLOSED_DOOR) && key == 2) {
-            cell.setType(CellType.WHITE_OPEN_DOOR);
         }
     }
 

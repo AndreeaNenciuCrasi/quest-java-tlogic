@@ -6,8 +6,8 @@ public class GameMap {
     private int width;
     private int height;
     private Cell[][] cells;
-
     private Player player;
+
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -27,6 +27,7 @@ public class GameMap {
     public void setPlayer(Player player) {
         this.player = player;
     }
+
 
     public Player getPlayer() {
         return player;
