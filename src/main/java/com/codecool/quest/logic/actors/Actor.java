@@ -153,7 +153,7 @@ public abstract class Actor implements Drawable {
             cell.setType(CellType.OPEN_DOOR);
         } else if (cell.getType().equals(CellType.WHITE_CLOSED_DOOR) && key == 2) {
             cell.setType(CellType.WHITE_OPEN_DOOR);
-        } else if (diamond == 1) {
+        } else if (diamond == 10) {
             Message message = new Message("Winner");
             message.setMessage("You Win !!");
             message.setVisible(true);
