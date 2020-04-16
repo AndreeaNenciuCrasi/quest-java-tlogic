@@ -168,42 +168,16 @@ public class Main extends Application {
         int canvasWidth=0;
         int canvasHeight=0;
 
-        if (avWidth>=map.getWidth()*Tiles.TILE_WIDTH&&avHeight>=map.getHeight()*Tiles.TILE_WIDTH) {
-            if (resize) {
-                canvas = new Canvas(
-                        map.getWidth() * Tiles.TILE_WIDTH,
-                        map.getHeight() * Tiles.TILE_WIDTH);
-                borderPane.setCenter(canvas);
-                context = canvas.getGraphicsContext2D();
-                context.setFill(Color.BLACK);
-                context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                resize=false;
-            }
 
-            for (int x = 0; x < map.getWidth(); x++) {
-                for (int y = 0; y < map.getHeight(); y++) {
-                    Cell cell = map.getCell(x, y);
-                    if (cell.getActor() != null) {
-                        Tiles.drawTile(context, cell.getActor(), x, y);
-                    } else {
-                        Tiles.drawTile(context, cell, x, y);
-                    }
-                }
-            }
-        }
-        else
-        {
+        int startX=0, endX=0, startY=0, endY=0;
+        if (avWidth<=map.getWidth()*Tiles.TILE_WIDTH){
 
             canvasWidth = avWidth - avWidth % (2 * Tiles.TILE_WIDTH);
             canvasWidth = (canvasWidth + Tiles.TILE_WIDTH <= avWidth) ? canvasWidth + Tiles.TILE_WIDTH : canvasWidth - Tiles.TILE_WIDTH;
-            canvasHeight = avHeight - avHeight % (2 * Tiles.TILE_WIDTH);
-            canvasHeight = (canvasHeight + Tiles.TILE_WIDTH <= avHeight) ? canvasHeight + Tiles.TILE_WIDTH : canvasHeight - Tiles.TILE_WIDTH;
-
             int widthCells = canvasWidth / Tiles.TILE_WIDTH;
             int beforeWidth = widthCells / 2;
-            int afterWidth = beforeWidth;
+            int afterWidth = widthCells-beforeWidth-1;
             int playerX = map.getPlayer().getX();
-
             if (beforeWidth > playerX) {
                 beforeWidth = playerX;
                 afterWidth += afterWidth - beforeWidth;
@@ -213,10 +187,23 @@ public class Main extends Application {
                 beforeWidth += beforeWidth - afterWidth;
 
             }
-            //System.out.println(widthCells + " " + beforeWidth + " " + afterWidth);
-            //int heightCells = canvasHeight / Tiles.TILE_WIDTH;
+            startX=playerX-beforeWidth;
+            endX=playerX+afterWidth;
+
+        }else{
+            canvasWidth=map.getWidth()*Tiles.TILE_WIDTH;
+            startX=0;
+            endX=map.getWidth()-1;
+
+        }
+
+        if (avHeight<=map.getHeight()*Tiles.TILE_WIDTH) {
+
+            canvasHeight = avHeight - avHeight % (2 * Tiles.TILE_WIDTH);
+            canvasHeight = (canvasHeight + Tiles.TILE_WIDTH <= avHeight) ? canvasHeight + Tiles.TILE_WIDTH : canvasHeight - Tiles.TILE_WIDTH;
+
             int beforeHeight = canvasHeight / Tiles.TILE_WIDTH / 2;
-            int afterHeight = beforeHeight;
+            int afterHeight = canvasHeight / Tiles.TILE_WIDTH - beforeHeight - 1;
             int playerY = map.getPlayer().getY();
             if (beforeHeight > playerY) {
                 beforeHeight = playerY;
@@ -224,30 +211,36 @@ public class Main extends Application {
             } else if (afterHeight > map.getHeight() - 1 - playerY) {
                 afterHeight = map.getHeight() - 1 - playerY;
                 beforeHeight += beforeHeight - afterHeight;
+            }
+            startY=playerY-beforeHeight;
+            endY=playerY+afterHeight;
 
-            }
-            if (resize) {
-                canvas = new Canvas(canvasWidth, canvasHeight);
-                context = canvas.getGraphicsContext2D();
-                borderPane.setCenter(canvas);
-                stage.sizeToScene();
-                stage.centerOnScreen();
-                resize=false;
-            }
-            //System.out.println(playerX+" "+playerY);
-            for (int x = playerX-beforeWidth,i=0; x <= playerX+afterWidth; x++,i++) {
-                for (int y = playerY-beforeHeight,j=0; y <= playerY+afterHeight; y++,j++) {
-                    //System.out.println("Drawing: "+x+" "+y);
-                    Cell cell = map.getCell(x, y);
-                    if (cell.getActor() != null) {
-                        Tiles.drawTile(context, cell.getActor(), i, j);
-                    } else {
-                        Tiles.drawTile(context, cell, i, j);
-                    }
+        } else{
+            canvasHeight=map.getHeight()*Tiles.TILE_WIDTH;
+            startY=0;
+            endY=map.getHeight()-1;
+
+        }
+
+        if (resize) {
+            canvas = new Canvas(canvasWidth, canvasHeight);
+            context = canvas.getGraphicsContext2D();
+            borderPane.setCenter(canvas);
+            stage.sizeToScene();
+            stage.centerOnScreen();
+            resize=false;
+        }
+        //System.out.println(playerX+" "+playerY);
+        for (int x = startX,i=0; x <= endX; x++,i++) {
+            for (int y =startY,j=0; y <= endY; y++,j++) {
+                //System.out.println("Drawing: "+x+" "+y);
+                Cell cell = map.getCell(x, y);
+                if (cell.getActor() != null) {
+                    Tiles.drawTile(context, cell.getActor(), i, j);
+                } else {
+                    Tiles.drawTile(context, cell, i, j);
                 }
             }
-
-
         }
 
         listView.getItems().clear();
