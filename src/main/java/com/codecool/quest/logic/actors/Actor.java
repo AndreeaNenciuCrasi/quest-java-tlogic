@@ -4,12 +4,12 @@ import com.codecool.quest.logic.*;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
-    private int health = 50;
+    private int playerHealth = 100;
+    private int playerStrength = 5;
     private int sword = 0;
     private int key = 0;
     private int diamond = 0;
     private int door = 0;
-    private int skeleton = 10;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -18,62 +18,56 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if (nextCell.getType().equals(CellType.WALL) || nextCell.getType().equals(CellType.SKELETON) ||
-                nextCell.getType().equals(CellType.SKELETON2) || nextCell.getType().equals(CellType.SKELETON3) ||
-                nextCell.getType().equals(CellType.HOUSE) || nextCell.getType().equals(CellType.TREE1)) {
+
+        if (nextCell.getType().equals(CellType.WALL) ||
+                nextCell.getType().equals(CellType.HOUSE) || nextCell.getType().equals(CellType.TREE1) ||
+                nextCell.getActor() instanceof Skeleton || nextCell.getActor() instanceof Skeleton2 ||
+                nextCell.getActor() instanceof Skeleton3) {
+//            Stops player getting through this objects
         } else {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
         }
 //        item position on map
-        itemPosition(dx, dy);
-
-
+        itemPosition();
         findMonster(nextCell);
     }
 
 
     void findMonster(Cell nextCell) {
-        if ((nextCell.getType().equals(CellType.SKELETON) || nextCell.getType().equals(CellType.SKELETON2) ||
-                nextCell.getType().equals(CellType.SKELETON3)) &&
-                sword == 0) {
-            hitMonster(nextCell, 5);
-        } else if ((nextCell.getType().equals(CellType.SKELETON) || nextCell.getType().equals(CellType.SKELETON2) ||
-                nextCell.getType().equals(CellType.SKELETON3)) && sword == 1) {
-            hitMonster(nextCell, 8);
+        if (nextCell.getActor() instanceof Skeleton) {
+            playerHealth -= ((Skeleton) nextCell.getActor()).getStrength();
+            ((Skeleton) nextCell.getActor()).setHealth(((Skeleton) nextCell.getActor()).getSkeletonHealth() - playerStrength);
+            if (((Skeleton) nextCell.getActor()).getSkeletonHealth() < 1) {
+                nextCell.setActor(null);
+            }
+        } else if (nextCell.getActor() instanceof Skeleton2) {
+            playerHealth -= ((Skeleton2) nextCell.getActor()).getStrength();
+            ((Skeleton2) nextCell.getActor()).setHealth(((Skeleton2) nextCell.getActor()).getSkeletonHealth() - playerStrength);
+            if (((Skeleton2) nextCell.getActor()).getSkeletonHealth() < 1) {
+                nextCell.setActor(null);
+            }
+
+        } else if (nextCell.getActor() instanceof Skeleton3) {
+            playerHealth -= ((Skeleton3) nextCell.getActor()).getStrength();
+            ((Skeleton3) nextCell.getActor()).setHealth(((Skeleton3) nextCell.getActor()).getSkeletonHealth() - playerStrength);
+            if (((Skeleton3) nextCell.getActor()).getSkeletonHealth() < 1) {
+                nextCell.setActor(null);
+            }
+
+        }
+
+    }
+
+    void hitMonster(Cell nextCell, int skeletonHitStrength, int skeletonHealth) {
+        playerHealth -= skeletonHitStrength;
+        ((Skeleton) nextCell.getActor()).setHealth(skeletonHealth - playerStrength);
+        if (((Skeleton) nextCell.getActor()).getSkeletonHealth() < 1) {
+            nextCell.setActor(null);
         }
     }
 
-    void hitMonster(Cell nextCell, int hitStrength) {
-        health -= 2;
-        skeleton -= hitStrength;
-        System.out.println(nextCell.getType());
-        if (skeleton > 0) {
-        } else {
-            nextCell.setType(CellType.FLOOR);
-            skeleton = 10;
-            System.out.println(nextCell.getType());
-        }
-    }
-
-
-//
-//    void itemPosition(int dx, int dy) {
-//        ItemButton button = new ItemButton(this);
-//
-//        if (cell.getType().equals(CellType.HEART)) {
-//            button.getItem(cell);
-//        } else if (cell.getType().equals(CellType.DIAMOND)) {
-//            button.getItem(cell);
-//        } else if (cell.getType().equals(CellType.SWORD)) {
-//            button.getItem(cell);
-//        } else if (cell.getType().equals(CellType.KEY)) {
-//            button.getItem(cell);
-//        } else if (cell.getType().equals(CellType.CLOSED_DOOR) && door == 1) {
-//            cell.setType(CellType.OPEN_DOOR);
-//        }
-//    }
 
     public int getSword() {
         return sword;
@@ -99,16 +93,12 @@ public abstract class Actor implements Drawable {
         this.diamond = diamond;
     }
 
-    public int getSkeleton() {
-        return skeleton;
+    public int getPlayerHealth() {
+        return playerHealth;
     }
 
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
+    public void setPlayerHealth(int playerHealth) {
+        this.playerHealth = playerHealth;
     }
 
     public Cell getCell() {
@@ -136,16 +126,19 @@ public abstract class Actor implements Drawable {
         this.door = door;
     }
 
-    public void itemPosition(int dx, int dy) {
-        Cell nextCell = cell.getNeighbor(dx, dy);
-        ItemButton button = new ItemButton(this);
+    public int getPlayerStrength() {
+        return playerStrength;
+    }
 
+    public void itemPosition() {
+        ItemButton button = new ItemButton(this);
         if (cell.getType().equals(CellType.HEART)) {
             button.getItem(cell);
         } else if (cell.getType().equals(CellType.DIAMOND)) {
             button.getItem(cell);
         } else if (cell.getType().equals(CellType.SWORD)) {
             button.getItem(cell);
+            playerStrength += 10;
         } else if (cell.getType().equals(CellType.KEY)) {
             button.getItem(cell);
         } else if (cell.getType().equals(CellType.KEY1)) {
@@ -158,12 +151,10 @@ public abstract class Actor implements Drawable {
             Message message = new Message("Winner");
             message.setMessage("You Win !!");
             message.setVisible(true);
-        } else if (health <= 0) {
+        } else if (playerHealth <= 0) {
             Message message = new Message("Loser");
             message.setMessage("You Lose !!");
             message.setVisible(true);
         }
-
-
     }
 }

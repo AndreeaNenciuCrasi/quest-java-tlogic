@@ -27,7 +27,7 @@ public class ItemButton {
                 actor.setDiamond(actor.getDiamond() + 1);
             }
             if (cell.getType() == CellType.HEART) {
-                actor.setHealth(actor.getHealth() + 5);
+                actor.setPlayerHealth(actor.getPlayerHealth() + 5);
             }
             if (cell.getType() == CellType.SWORD) {
                 actor.setSword(actor.getSword() + 1);

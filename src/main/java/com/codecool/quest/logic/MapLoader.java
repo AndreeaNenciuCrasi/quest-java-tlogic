@@ -1,6 +1,9 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.actors.Player;
+import com.codecool.quest.logic.actors.Skeleton;
+import com.codecool.quest.logic.actors.Skeleton2;
+import com.codecool.quest.logic.actors.Skeleton3;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -31,8 +34,8 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             break;
                         case 's':
-                            cell.setType(CellType.SKELETON);
-//                            new Skeleton(cell);
+                            cell.setType(CellType.FLOOR);
+                            new Skeleton(cell);
                             break;
                         case 'w':
                             cell.setType(CellType.SWORD);
@@ -75,19 +78,20 @@ public class MapLoader {
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
-                            if (player==null){
+                            if (player == null) {
                                 map.setPlayer(new Player(cell));
-                            }else {
+                            } else {
                                 map.setPlayer(player);
                                 player.setCell(cell);
                             }
                             break;
                         case '+':
-
-                            cell.setType(CellType.SKELETON2);
+                            cell.setType(CellType.FLOOR);
+                            new Skeleton2(cell);
                             break;
                         case '^':
-                            cell.setType(CellType.SKELETON3);
+                            cell.setType(CellType.FLOOR);
+                            new Skeleton3(cell);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

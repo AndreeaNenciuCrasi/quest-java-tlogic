@@ -4,6 +4,8 @@ import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
+import com.codecool.quest.logic.actors.Actor;
+import com.codecool.quest.logic.actors.Skeleton2;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -39,6 +41,8 @@ public class Main extends Application {
     boolean resize = false;
     private static String playerName;
     private int counter;
+    Cell cell;
+    Actor actor;
 
 
     public static String getPlayerName() {
@@ -61,10 +65,13 @@ public class Main extends Application {
 
         System.out.println(map);
         listView = new ListView<>();
-        listView.getItems().addAll("Character Name: " + playerName, "Health: " + map.getPlayer().getHealth(),
-                "Enemy Health: " + map.getPlayer().getSkeleton(),
-                " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
+        listView.getItems().addAll("Character Name: " + playerName,
+                "Health: " + map.getPlayer().getPlayerHealth(),
+                "Player Strength: " + map.getPlayer().getPlayerStrength(),
+                " ",
+                "INVENTORY", "Sword: " + map.getPlayer().getSword(),
                 "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey());
+
         ui.add(listView, 0, 0);
 
         borderPane = new BorderPane();
@@ -115,9 +122,9 @@ public class Main extends Application {
 
     private void cheatCodes() {
         if (playerName.equals("Andreea")) {
-            map.getPlayer().setHealth(1000);
+            map.getPlayer().setPlayerHealth(1000);
         } else if (playerName.equals("Claudiu")) {
-            map.getPlayer().setHealth(1000);
+            map.getPlayer().setPlayerHealth(1000);
         }
     }
 
@@ -251,9 +258,11 @@ public class Main extends Application {
         }
 
         listView.getItems().clear();
-        listView.getItems().addAll("Character Name: " + playerName, "Health: " + map.getPlayer().getHealth(),
-                "Enemy Health: " + map.getPlayer().getSkeleton(),
-                " ", "INVENTORY", "Sword: " + map.getPlayer().getSword(),
+        listView.getItems().addAll("Character Name: " + playerName,
+                "Health: " + map.getPlayer().getPlayerHealth(),
+                "Player Strength: " + map.getPlayer().getPlayerStrength(),
+                " ",
+                "INVENTORY", "Sword: " + map.getPlayer().getSword(),
                 "Diamond: " + map.getPlayer().getDiamond(), "Key: " + map.getPlayer().getKey());
     }
 
@@ -261,7 +270,7 @@ public class Main extends Application {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 Cell cell = map.getCell(x, y);
-                if (cell.getActor() != null && counter % 5 == 0) {
+                if (cell.getActor() != null && counter % 9 == 0) {
                     generateSkeleton2(cell);
                 }
             }
@@ -272,12 +281,11 @@ public class Main extends Application {
 
     public void generateSkeleton2(Cell cell) {
         Random rand = new Random();
-        int[] randomNr = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        int x = rand.nextInt(randomNr.length);
-        int y = rand.nextInt(randomNr.length);
+        int x = rand.nextInt(12);
+        int y = rand.nextInt(12);
         Cell nextCell = cell.getNeighbor(x, y);
         if (nextCell.getType().equals(CellType.FLOOR)) {
-            nextCell.setType(CellType.SKELETON2);
+            new Skeleton2(nextCell);
         }
     }
 

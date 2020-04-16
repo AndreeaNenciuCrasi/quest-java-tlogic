@@ -2,12 +2,12 @@ package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
 
-public class Skeleton2 extends Actor {
+public class Skeleton3 extends Actor {
 
-    private int health = 15;
-    private int strength = 6;
+    private int health = 25;
+    private int strength = 15;
 
-    public Skeleton2(Cell cell) {
+    public Skeleton3(Cell cell) {
         super(cell);
     }
 
@@ -25,6 +25,6 @@ public class Skeleton2 extends Actor {
 
     @Override
     public String getTileName() {
-        return "skeleton2";
+        return "skeleton3";
     }
 }

@@ -1,21 +1,19 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.actors.Actor;
+import com.codecool.quest.logic.actors.Skeleton;
 
 public class Cell implements Drawable {
     private CellType type;
     private Actor actor;
     private GameMap gameMap;
     private int x, y;
-    private int skeleton2X, skeleton2Y;
-    private int counter;
+    private Skeleton skeleton;
 
     Cell(GameMap gameMap, int x, int y, CellType type) {
         this.gameMap = gameMap;
         this.x = x;
         this.y = y;
-        this.skeleton2X = 19;
-        this.skeleton2Y = 21;
         this.type = type;
     }
 
@@ -39,7 +37,6 @@ public class Cell implements Drawable {
         return gameMap.getCell(x + dx, y + dy);
     }
 
-
     @Override
     public String getTileName() {
         return type.getTileName();
@@ -53,7 +50,4 @@ public class Cell implements Drawable {
         return y;
     }
 
-    public int getSkeleton2X() {
-        return skeleton2X;
-    }
 }

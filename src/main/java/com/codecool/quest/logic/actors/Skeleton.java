@@ -1,9 +1,24 @@
 package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
-import com.codecool.quest.logic.actors.Actor;
 
 public class Skeleton extends Actor {
+
+    private int health = 10;
+    private int strength = 3;
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getSkeletonHealth() {
+        return health;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
     public Skeleton(Cell cell) {
         super(cell);
     }
