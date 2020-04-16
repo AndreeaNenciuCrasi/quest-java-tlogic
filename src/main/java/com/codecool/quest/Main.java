@@ -36,10 +36,14 @@ public class Main extends Application {
     ListView<String> listView;
     BorderPane borderPane;
     Stage stage;
-    boolean resize=false;
-    private String playerName;
+    boolean resize = false;
+    private static String playerName;
     private int counter;
-    private Cell cell;
+
+
+    public static String getPlayerName() {
+        return playerName;
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -175,6 +179,7 @@ public class Main extends Application {
                 context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 resize=false;
             }
+
             for (int x = 0; x < map.getWidth(); x++) {
                 for (int y = 0; y < map.getHeight(); y++) {
                     Cell cell = map.getCell(x, y);
@@ -256,7 +261,7 @@ public class Main extends Application {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 Cell cell = map.getCell(x, y);
-                if (cell.getActor() != null && counter % 9 == 0) {
+                if (cell.getActor() != null && counter % 5 == 0) {
                     generateSkeleton2(cell);
                 }
             }
@@ -267,7 +272,7 @@ public class Main extends Application {
 
     public void generateSkeleton2(Cell cell) {
         Random rand = new Random();
-        int[] randomNr = {0, 0, 0};
+        int[] randomNr = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         int x = rand.nextInt(randomNr.length);
         int y = rand.nextInt(randomNr.length);
         Cell nextCell = cell.getNeighbor(x, y);
